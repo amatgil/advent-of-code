@@ -1,0 +1,3 @@
+# Advent of Code (solutions)
+
+This combines all my previous repos for aoc solutions (which were split by language and year) into one).
