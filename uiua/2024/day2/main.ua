@@ -5,7 +5,7 @@
 Input ← AoCGet 2024 2
 
 # ====== Shared ======
-IsValid₁   ← |1 ↧⊃(/×↧⊃≥₁≤₃ ⌵/- ⍉ ◫2|↥⊃(≍⇌|≍)⊃(⍖⍏|⇡⧻))
+IsValid₁   ← |1 ↧⊃(/×↧⊃≥₁≤₃ ⌵/- ⍉ ⧈∘2|↥⊃(≍⇌|≍)⊃(⍖⍏|⇡⧻))
 VariantsOf ← ≡⍜⊏⋅[] ⊃(⇡⧻|¤)
 
 IsValid₂ ← |1 /↥ ≡IsValid₁ VariantsOf
