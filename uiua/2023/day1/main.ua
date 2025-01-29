@@ -1,5 +1,5 @@
 # Experimental!
-~ "../../fetcher/lib.ua" ~ AoCGet
+~ "git: github.com/amatgil/steal-gift" ~ AoCGet
 
 # ====== INPUTS ======
 Input ← AoCGet 2023 1
