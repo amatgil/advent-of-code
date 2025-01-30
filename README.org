@@ -1,3 +1,5 @@
 # Advent of Code (solutions)
 
-This combines all my previous repos for aoc solutions (which were split by language and year) into one).
+This combines all my previous repos for aoc solutions (which were split by language and year) into one.
+
+Rust {2021, 2022} are quite bad, and the old uiua ones are both bad and out of date (Uiua is not yet stable!)
