@@ -6,4 +6,4 @@ inputs/
 target/
 *input*
 /rust/2022/dia-07/*.txt
-/rust/2022/dia-11/.vscode/ # i don't use vscode lmao
+/rust/2022/dia-11/.vscode/
