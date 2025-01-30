@@ -2,3 +2,6 @@
 uiua-modules
 .direnv/
 inputs/
+
+target/
+*input*
