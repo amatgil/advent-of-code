@@ -7,16 +7,17 @@
 ") ; trailing newline!
 
 (defun parse (rawinput)
-  (cl-reduce (lambda (acc x)
-                 (list
-                  (cons (string-to-number (car x)) (car acc))
-                  (cons (string-to-number (cadr x)) (cadr acc))))
-             (mapcar
-              (lambda (l) (let ((split (split-string l " ")))
-                            (list (car split) (car (last split)))))
+  (let ((ret (cl-reduce (lambda (acc x)
+                          (list
+                           (cons (string-to-number (car x)) (car acc))
+                           (cons (string-to-number (cadr x)) (cadr acc))))
+                        (mapcar
+                         (lambda (l) (let ((split (split-string l " ")))
+                                       (list (car split) (car (last split)))))
 
-              (split-string (string-trim-right rawinput "\n") "\n"))
-             :initial-value '(() ())))
+                         (split-string (string-trim-right rawinput "\n") "\n"))
+                        :initial-value '(() ()))))
+    (list (reverse (car ret)) (reverse (cadr ret)))))
 
 (defun part1 (input)
   (let ((parsed (parse input)))
@@ -26,5 +27,4 @@
                       (sort (cadr parsed) '<)))))
 
 
-(parse sample)
 (format "Part 1: %d" (part1 (f-read "../inputs/2024-01.txt")))
