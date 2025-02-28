@@ -17,28 +17,28 @@
                          (lambda (l) (let ((split (split-string l " ")))
                                        (list (car split) (car (last split)))))
 
-                         (split-string (string-trim-right rawinput "\n") "\n"))
+                         (split-string (trim-trailing-newline rawinput) "\n"))
                         :initial-value '(() ()))))
     (list (reverse (car ret)) (reverse (cadr ret)))))
 
 (defun part1 (input)
   (let ((parsed (parse input)))
-    (-reduce '+
+    (-reduce #'+
              (mapcar* (lambda (x y) (abs (- x y)))
-                      (sort (car parsed) '<)
-                      (sort (cadr parsed) '<)))))
+                      (sort (car parsed) #'<)
+                      (sort (cadr parsed) #'<)))))
 
 (defun part2 (input)
-  (cl-reduce '+
+  (cl-reduce #'+
              (let* ((parsed (parse input))
                     (left (car parsed))
                     (right (cadr parsed)))
-               (mapcar* '*
+               (mapcar* #'*
                         (mapcar (lambda (l)
                                   (length (-filter (curry equal l) right)))
                                 left)
                         left))))
 
-(format "Part 1: %d" (part1 (f-read "../inputs/2024-01.txt")))
-(format "Part 2: %d" (part2 (f-read "../inputs/2024-01.txt")))
+(print (format "Part 1: %d" (part1 (f-read "../inputs/2024-01.txt"))))
+(print (format "Part 2: %d" (part2 (f-read "../inputs/2024-01.txt"))))
 
