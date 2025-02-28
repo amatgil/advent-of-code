@@ -1,28 +1,25 @@
-(load-file "utils.el")
-
 (setq sample "3   4
 4   3
 2   5
 1   3
 3   9
 3   3
-")
+") ; trailing newline!
+
+(defun parse (rawinput)
+  (cl-reduce (lambda (acc x)
+                 (list
+                  (cons (string-to-number (car x)) (car acc))
+                  (cons (string-to-number (cadr x)) (cadr acc))))
+             (mapcar
+              (lambda (l) (let ((split (split-string l " ")))
+                            (list (car split) (car (last split)))))
+
+              (split-string (string-trim-right input "\n") "\n"))
+             :initial-value '(() ())))
 
 (defun part1 (input)
-  (let ((parsed (cl-reduce (lambda (acc x)
-                             (let ((new-left  (car x))
-                                   (new-right (cadr x))
-                                   (old-left  (car acc))
-                                   (old-right (cadr acc)))
-                               (list
-                                (cons (string-to-number new-left) old-left)
-                                (cons (string-to-number new-right) old-right))))
-                           (mapcar
-                            (lambda (l) (let ((split (split-string l " ")))
-                                          (list (car split) (cadddr split))))
-
-                            (split-string (string-trim-right input "\n") "\n"))
-                           :initial-value '(() ()))))
+  (let ((parsed (parse input)))
     (-reduce '+
              (mapcar* (lambda (x y) (abs (- x y)))
                       (sort (car parsed) '<)
