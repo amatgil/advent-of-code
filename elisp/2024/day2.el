@@ -14,15 +14,11 @@
           (string-split (trim-trailing-newline input) "\n")))
 
 (defun stencil (n xs)
-  "Assumes length is multiple of n !!"
   (if (< (length xs) n) nil
-    (cons (-take n xs)
-          (stencil n (nthcdr (1- n) xs)))))
+    (cons (-take n xs) (stencil n (nthcdr (1- n) xs)))))
 
 (defun is-monotonic (xs)
-  (let ((steps (mapcar
-                (curry apply #'-)
-                (stencil 2 xs))))
+  (let ((steps (mapcar (curry apply #'-) (stencil 2 xs))))
     (or (-all? (curry > 0) steps)
         (-all? (curry < 0) steps))))
 
@@ -32,20 +28,24 @@
                     (and (<= 1 delta) (>= 3 delta))))
    (stencil 2 xs)))
 
-(stencil 2 '(1 2 3 4 5))
-(mapcar
- (curry apply #'-)
- (stencil 2 (car (parse sample))))
+(defun is-safe (xs)
+  (and (grows-slowly xs) (is-monotonic xs)))
 
-(mapcar
- (lambda (pair) (let ((delta (abs (apply #'- pair))))
-                  (and (<= 1 delta) (>= 3 delta))))
- (stencil 2 (car (parse sample))))
+(defun variations (l)
+  (if (null l) l
+    (cons (cdr l)
+          (mapcar (curry cons (car l))
+                  (variations (cdr l))))))
 
 (defun part1 (input)
-  (-count 
-   (lambda (l) (and (grows-slowly l)
-                    (is-monotonic l)))
-   (parse input)))
+  (-count #'is-safe (parse input)))
+
+(defun part2 (input)
+  (-count (lambda (row)
+            (-any #'is-safe (variations row)))
+          (parse input)))
+
 
 (print (format "Part 1: %d" (part1 (f-read "../inputs/2024-02.txt"))))
+(print (format "Part 2: %d" (part2 (f-read "../inputs/2024-02.txt"))))
+
