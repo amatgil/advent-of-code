@@ -38,8 +38,8 @@ cons cell of the number and the non-consumed part of the string"
        (cons nil s))))
 
 (parse-prefix parse-mul-prefix "mul(")
-(parse-prefix parse-do "do(")
-(parse-prefix parse-dont "don't(")
+(parse-prefix parse-do "do()")
+(parse-prefix parse-dont "don't()")
 (parse-prefix parse-comma ",")
 (parse-prefix parse-close ")")
 
