@@ -4,7 +4,6 @@
 (setq sample "xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))")
 ;              ^^^^^^^^--------------------^^^^^^^^----------------^^^^^^^^^^^^^^^^^
 
-(defun string-to-list (s) (append s nil))
 (defun chardigit-to-digit (c) (- c ?0))
 (defun is-digit (d) (and (<= ?0 d) (>= ?9 d)))
 
