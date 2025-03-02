@@ -4,7 +4,16 @@
 
 (defun trim-trailing-newline (text) (string-right-trim "\n" text))
 
-(defun split-on-newline (text) (uiop:split-string (trim-trailing-newline text)
-                                                  :separator '(#\linefeed)))
+(defun split-on-space (text) (uiop:split-string (trim-trailing-newline text)
+                                                  :separator " "))
+(defun split-on-newline (text) (butlast (uiop:split-string text
+                                                     :separator '(#\linefeed))))
+(defun take (n l) (subseq l 0 (min n (length l))))
 
-(defun string-to-list (s) (append s nil))
+(defun string-to-list (s) (coerce s 'list))
+
+(defun take-while (f l)
+  (if (null l) nil
+      (if (funcall f (car l)) (cons (car l)
+                              (take-while f (cdr l)))
+          nil)))
