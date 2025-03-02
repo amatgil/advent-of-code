@@ -7,3 +7,4 @@ target/
 *input*
 /rust/2022/dia-07/*.txt
 /rust/2022/dia-11/.vscode/
+*.fasl
