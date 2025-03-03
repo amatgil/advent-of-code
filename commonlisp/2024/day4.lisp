@@ -93,16 +93,37 @@ MXMXAXMASX
          (indices (remove-if
                    (lambda (elem) (exists-already-as-suffix elem indices-dup))
                    indices-dup)))
-    (mapcar (lambda (p) (index-2d p m)) indices)))
+    (loop for diag-coord in indices
+          collecting (loop for coord in diag-coord
+                           collecting (index-2d coord m)))))
 
 
-(diags-of '((a b c d)
-            (e f g h)
-            (i j k l)
-            (m n o p)))
+(defparameter testmat
+  '((a b c d)
+    (e f g h)
+    (i j k l)
+    (m n o p)))
 
-(diags-of (mapcar #'string-to-list (split-on-newline sample)))
+(diags-of testmat)
 
+(flatten (loop for i from 0 to (1- (length testmat))
+         collect (loop for j from 0 to (1- (length (car testmat)))
+                       collect (list i j))))
+
+(let* ((m (mapcar #'string-to-list (split-on-newline sample)))
+       (indices-dup (diags-of-go
+                     (loop for i from 0 to (1- (length m))
+                           collect (loop for j from 0 to (1- (length (car m)))
+                                         collect (list i j)))))
+       )
+  (format t "Done: ~A~%" indices-dup))
+
+(let ((r (diags-of (mapcar #'string-to-list (split-on-newline sample)))))
+  (format t "Len: ~A~%" (length r)))
+(y-or-n-p "Prompt would be here")
+
+(remove-if-not (lambda (x) (= 0 (mod x 2))) '(1 2 3 4 5 6 7 8 9 10))
+`(and ,@'(1 2 3) 4) 
 ;; i := 0, 1, 2
 ;; d := 0, 1, 2
 ;; (0, 1) -> (0, 1)
@@ -121,22 +142,25 @@ MXMXAXMASX
 
 (diag-indices 10 10)
 
-(defun count-pattern-main-diag (needle haystack)
-  (loop for i from 0 to (1- (length haystack))
-        do (loop for j from 0 to (1- (length (car haystack)))
-                 do ())))
+(defun count-pattern-major-diag (needle haystack)
+  (count-pattern-horizontally needle (diags-of haystack)))
 
-(count-pattern-horizontally
- (string-to-list "MA")
- (mapcar #'string-to-list (split-on-newline sample)))
+(defun count-pattern-minor-diag (needle haystack)
+  (count-pattern-horizontally needle (diags-of (mapcar #'reverse haystack))))
 
 (defun part1 (input)
-  (let ((parsed (mapcar #'string-to-list (split-on-newline input))))
+  (let* ((parsed (mapcar #'string-to-list (split-on-newline input)))
+         (needle-normal (string-to-list "XMAS"))
+         (needle-reversed (reverse needle-normal)))
     (+
-     (count-pattern-horizontally          (string-to-list "XMAS")  parsed)
-     (count-pattern-horizontally (reverse (string-to-list "XMAS")) parsed)
-     (count-pattern-vertically            (string-to-list "XMAS")  parsed)
-     (count-pattern-vertically   (reverse (string-to-list "XMAS")) parsed))))
+     (count-pattern-horizontally needle-normal   parsed)
+     (count-pattern-horizontally needle-reversed parsed)
+     (count-pattern-vertically   needle-normal   parsed)
+     (count-pattern-vertically   needle-reversed parsed)
+     (count-pattern-major-diag   needle-normal   parsed)
+     (count-pattern-major-diag   needle-reversed parsed)
+     (count-pattern-minor-diag   needle-normal   parsed)
+     (count-pattern-minor-diag   needle-reversed parsed))))
 
 (part1 sample)
 
