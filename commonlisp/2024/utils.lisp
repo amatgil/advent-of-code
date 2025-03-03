@@ -17,3 +17,11 @@
       (if (funcall f (car l)) (cons (car l)
                               (take-while f (cdr l)))
           nil)))
+
+(defun flatten (l)
+  (cond ((null l) nil)
+        ((null (car l)) (flatten (cdr l)))
+        ('t (cons (car (car l))
+                  (concatenate 'list
+                               (cdr (car l))
+                               (flatten (cdr l)))))))
