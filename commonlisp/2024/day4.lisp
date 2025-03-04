@@ -51,58 +51,28 @@ MXMXAXMASX
                  (cons (car (car m))
                        (main-diag-of (mapcar #'cdr (cdr m)))))))
 
-(defun diags-of-go (m)
+(defun diags-of-go-removing-lines (m)
+  (if (null m) nil
+      (cons (main-diag-of m)
+            (diags-of-go-removing-lines (cdr m)))))
+
+(defun diags-of-go-removing-cols (m)
+  (if (null (car m)) nil
+      (cons (main-diag-of m)
+            (diags-of-go-removing-cols (mapcar #'cdr m)))))
+
+(defun diags-of (m)
   (if (or (null m) (null (car m))) nil
       (cons
        (main-diag-of m)
        (concatenate 'list
-                    (diags-of-go (cdr m))
-                    (diags-of-go (mapcar #'cdr m))))))
+                    (diags-of-go-removing-lines (cdr m))
+                    (diags-of-go-removing-cols (mapcar #'cdr m))))))
 
 (defun index-2d (coords grid)
   (let ((i (car coords))
         (j (cadr coords)))
     (nth j (nth i grid))))
-
-(index-2d '(2 3)
-          '((a b c d)
-            (e f g h)
-            (i j k l)
-            (m n o p)))
-
-(defun exists-already-as-suffix (elem set)
-  (some
-   (lambda (other)
-     (and (is-suffix-p elem other)
-          (not (equal elem other))))
-   set))
-
-(let ((m '((a b c d)
-           (e f g h)
-           (i j k l)
-           (m n o p))))
-  (loop for i from 0 to (1- (length m))
-        collect (loop for j from 0 to (1- (length (car m)))
-                 collect (list i j))))
-
-(defun diags-of (m)
-  (let* ((indices-dup (diags-of-go
-                       (loop for i from 0 to (1- (length m))
-                             collect (loop for j from 0 to (1- (length (car m)))
-                                           collect (list i j)))))
-         (indices (remove-if
-                   (lambda (elem) (exists-already-as-suffix elem indices-dup))
-                   indices-dup)))
-    (loop for diag-coord in indices
-          collecting (loop for coord in diag-coord
-                           collecting (index-2d coord m)))))
-
-
-(defparameter testmat
-  '((a b c d)
-    (e f g h)
-    (i j k l)
-    (m n o p)))
 
 (diags-of testmat)
 
@@ -118,12 +88,6 @@ MXMXAXMASX
        )
   (format t "Done: ~A~%" indices-dup))
 
-(let ((r (diags-of (mapcar #'string-to-list (split-on-newline sample)))))
-  (format t "Len: ~A~%" (length r)))
-(y-or-n-p "Prompt would be here")
-
-(remove-if-not (lambda (x) (= 0 (mod x 2))) '(1 2 3 4 5 6 7 8 9 10))
-`(and ,@'(1 2 3) 4) 
 ;; i := 0, 1, 2
 ;; d := 0, 1, 2
 ;; (0, 1) -> (0, 1)
@@ -137,10 +101,6 @@ MXMXAXMASX
 ;; (0 0) (0 1) (0 2) (0 3) (0 4)
 ;; (1 0) (1 1) (1 2) (1 3) (1 4)
 ;; (2 0) (2 1) (2 2) (2 3) (2 4)
-
-(concatenate 'list '(1 2 3) '(4 5 6))
-
-(diag-indices 10 10)
 
 (defun count-pattern-major-diag (needle haystack)
   (count-pattern-horizontally needle (diags-of haystack)))
