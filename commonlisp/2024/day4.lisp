@@ -122,7 +122,9 @@ MXMXAXMASX
      (count-pattern-minor-diag   needle-normal   parsed)
      (count-pattern-minor-diag   needle-reversed parsed))))
 
-(part1 sample)
+(assert (equal 18 (part1 sample)))
+
+(format t "~&Part 1: ~A~&" (part1 (uiop:read-file-string "../inputs/2024-04.txt")))
 
 
 
