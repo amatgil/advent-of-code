@@ -13,6 +13,8 @@ MAMMMXMMMM
 MXMXAXMASX
 ")
 
+;;;;;;;;;;;;;;;;;;;; PART 1 ;;;;;;;;;;;;;;;;;;;;
+
 (defun is-prefix-p (prefix other)
   (cond ((null prefix) 't)
         ((null other) nil)
@@ -22,15 +24,14 @@ MXMXAXMASX
 
 (defun count-instances-in-row (needle haystack)
   "Counts PER ROW"
-  (if (<= (length needle) (length haystack))
+  (if (> (length needle) (length haystack)) 0
       (let ((rest (count-instances-in-row needle (cdr haystack))))
         (if (is-prefix-p needle haystack)
             (1+ rest)
-            rest))
-      0))
+            rest))))
   
 (defun main-diag-of (m)
-  (remove-if #'null
+  (remove-if #'null ; Dumb way of removing trailing nil
              (if (null m) nil
                  (cons (car (car m))
                        (main-diag-of (mapcar #'cdr (cdr m)))))))
@@ -52,11 +53,6 @@ MXMXAXMASX
        (concatenate 'list
                     (diags-of-go-removing-lines (cdr m))
                     (diags-of-go-removing-cols (mapcar #'cdr m))))))
-
-(defun index-2d (coords grid)
-  (let ((i (car coords))
-        (j (cadr coords)))
-    (nth j (nth i grid))))
 
 (defun count-pattern-horiz (needle haystack)
   (reduce #'+ (mapcar (curry count-instances-in-row needle) haystack)))
@@ -84,14 +80,7 @@ MXMXAXMASX
      (count-pattern-major-diag   needle-reversed parsed)
      (count-pattern-minor-diag   needle-reversed parsed))))
 
-(assert (equal 18 (part1 sample)))
-(assert (equal 9 (part2 sample)))
-
-(format t "~&Part 1: ~A~&" (part1 (uiop:read-file-string "../inputs/2024-04.txt")))
-(format t "~&Part 2: ~A~&" (part2 (uiop:read-file-string "../inputs/2024-04.txt")))
-
-
-
+;;;;;;;;;;;;;;;;;;;; PART 2 ;;;;;;;;;;;;;;;;;;;;
 
 (defun there-is-cross-here (needle haystack)
   "Expects lists"
@@ -107,11 +96,6 @@ MXMXAXMASX
              (or (is-prefix-p needle min-diag)
                  (is-prefix-p (reverse needle) min-diag))))))
 
-(count-crosses '(M A S) '((S X M A)
-                          (X A X A)
-                          (X X M A)
-                          (A B C D)))
-
 (defun count-crosses-moving-across (needle haystack)
   "Moves the sliding window exclusively rightward"
   (if (or (null haystack) (null (car haystack))) 0
@@ -124,12 +108,13 @@ MXMXAXMASX
        (count-crosses-moving-across needle haystack)
        (count-crosses needle (cdr haystack)))))
 
-
-
-
 (defun part2 (input)
   (let* ((parsed (mapcar #'string-to-list (split-on-newline input)))
          (needle (string-to-list "MAS")))
     (count-crosses needle parsed)))
 
-(part2 sample)
+(assert (equal 18 (part1 sample)))
+(assert (equal 9 (part2 sample)))
+
+(format t "~&Part 1: ~A~&" (part1 (uiop:read-file-string "../inputs/2024-04.txt")))
+(format t "~&Part 2: ~A~&" (part2 (uiop:read-file-string "../inputs/2024-04.txt")))

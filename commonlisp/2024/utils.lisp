@@ -14,8 +14,8 @@
 
 (defun take-while (f l)
   (if (null l) nil
-      (if (funcall f (car l)) (cons (car l)
-                              (take-while f (cdr l)))
+      (if (funcall f (car l))
+          (cons (car l) (take-while f (cdr l)))
           nil)))
 
 (defun flatten (l)
@@ -25,3 +25,8 @@
                   (concatenate 'list
                                (cdr (car l))
                                (flatten (cdr l)))))))
+
+(defun transpose (grid)
+  (loop for i from 0 to (1- (length (car grid)))
+        collect (loop for j from 0 to (1- (length grid))
+                      collect (elt (elt grid j) i))))
