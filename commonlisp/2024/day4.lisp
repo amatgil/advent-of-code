@@ -20,14 +20,6 @@ MXMXAXMASX
              (equal (car prefix) (car other))
              (is-prefix-p (cdr prefix) (cdr other))))))
 
-(defun is-suffix-p (suffix other)
-  (is-prefix-p (reverse suffix) (reverse other)))
-
-(defun transpose (grid)
-  (loop for i from 0 to (1- (length (car grid)))
-        collect (loop for j from 0 to (1- (length grid))
-                      collect (elt (elt grid j) i))))
-
 (defun count-instances-in-row (needle haystack)
   "Counts PER ROW"
   (if (<= (length needle) (length haystack))
@@ -37,14 +29,6 @@ MXMXAXMASX
             rest))
       0))
   
-(defun count-pattern-horizontally (needle haystack)
-  "Counts PER GRID"
-  (reduce #'+ (mapcar (curry count-instances-in-row needle) haystack)))
-
-(defun count-pattern-vertically (needle haystack)
-  "Counts PER GRID"
-  (reduce #'+ (mapcar (curry count-instances-in-row needle) (transpose haystack))))
-
 (defun main-diag-of (m)
   (remove-if #'null
              (if (null m) nil
@@ -74,59 +58,78 @@ MXMXAXMASX
         (j (cadr coords)))
     (nth j (nth i grid))))
 
-(diags-of testmat)
+(defun count-pattern-horiz (needle haystack)
+  (reduce #'+ (mapcar (curry count-instances-in-row needle) haystack)))
 
-(flatten (loop for i from 0 to (1- (length testmat))
-         collect (loop for j from 0 to (1- (length (car testmat)))
-                       collect (list i j))))
-
-(let* ((m (mapcar #'string-to-list (split-on-newline sample)))
-       (indices-dup (diags-of-go
-                     (loop for i from 0 to (1- (length m))
-                           collect (loop for j from 0 to (1- (length (car m)))
-                                         collect (list i j)))))
-       )
-  (format t "Done: ~A~%" indices-dup))
-
-;; i := 0, 1, 2
-;; d := 0, 1, 2
-;; (0, 1) -> (0, 1)
-;; (0, 2) -> (0, 2)
-;; (1, 1) -> (1, 0)
-;; (1, 2) -> (1, 1)
-;; (2, 0) -> (2, 2)
-;; (2, 1) -> (2, 1)
-;; (2, 2) -> (2, 0)
-
-;; (0 0) (0 1) (0 2) (0 3) (0 4)
-;; (1 0) (1 1) (1 2) (1 3) (1 4)
-;; (2 0) (2 1) (2 2) (2 3) (2 4)
+(defun count-pattern-vert (needle haystack)
+  (reduce #'+ (mapcar (curry count-instances-in-row needle) (transpose haystack))))
 
 (defun count-pattern-major-diag (needle haystack)
-  (count-pattern-horizontally needle (diags-of haystack)))
+  (count-pattern-horiz needle (diags-of haystack)))
 
 (defun count-pattern-minor-diag (needle haystack)
-  (count-pattern-horizontally needle (diags-of (mapcar #'reverse haystack))))
+  (count-pattern-horiz needle (diags-of (mapcar #'reverse haystack))))
 
 (defun part1 (input)
   (let* ((parsed (mapcar #'string-to-list (split-on-newline input)))
          (needle-normal (string-to-list "XMAS"))
          (needle-reversed (reverse needle-normal)))
     (+
-     (count-pattern-horizontally needle-normal   parsed)
-     (count-pattern-horizontally needle-reversed parsed)
-     (count-pattern-vertically   needle-normal   parsed)
-     (count-pattern-vertically   needle-reversed parsed)
+     (count-pattern-horiz        needle-normal   parsed)
+     (count-pattern-vert         needle-normal   parsed)
      (count-pattern-major-diag   needle-normal   parsed)
-     (count-pattern-major-diag   needle-reversed parsed)
      (count-pattern-minor-diag   needle-normal   parsed)
+     (count-pattern-horiz        needle-reversed parsed)
+     (count-pattern-vert         needle-reversed parsed)
+     (count-pattern-major-diag   needle-reversed parsed)
      (count-pattern-minor-diag   needle-reversed parsed))))
 
 (assert (equal 18 (part1 sample)))
+(assert (equal 9 (part2 sample)))
 
 (format t "~&Part 1: ~A~&" (part1 (uiop:read-file-string "../inputs/2024-04.txt")))
+(format t "~&Part 2: ~A~&" (part2 (uiop:read-file-string "../inputs/2024-04.txt")))
 
 
 
 
+(defun there-is-cross-here (needle haystack)
+  "Expects lists"
+  (if (or (> (length needle) (length haystack))
+          (> (length needle) (length (car haystack))))
+      nil
+      (let* ((n (length needle))
+             (submat (mapcar (curry take n) (take n haystack)))
+             (maj-diag (main-diag-of submat))
+             (min-diag (main-diag-of (mapcar #'reverse submat))))
+        (and (or (is-prefix-p needle maj-diag)
+                 (is-prefix-p (reverse needle) maj-diag))
+             (or (is-prefix-p needle min-diag)
+                 (is-prefix-p (reverse needle) min-diag))))))
 
+(count-crosses '(M A S) '((S X M A)
+                          (X A X A)
+                          (X X M A)
+                          (A B C D)))
+
+(defun count-crosses-moving-across (needle haystack)
+  "Moves the sliding window exclusively rightward"
+  (if (or (null haystack) (null (car haystack))) 0
+      (+ (if (there-is-cross-here needle haystack) 1 0)
+         (count-crosses-moving-across needle (mapcar #'cdr haystack)))))
+  
+(defun count-crosses (needle haystack)
+  (if (or (null haystack) (null (car haystack))) 0
+      (+
+       (count-crosses-moving-across needle haystack)
+       (count-crosses needle (cdr haystack)))))
+
+
+
+
+(defun part2 (input)
+  (let* ((parsed (mapcar #'string-to-list (split-on-newline input)))
+         (needle (string-to-list "MAS")))
+    (count-crosses needle parsed)))
+
+(part2 sample)
