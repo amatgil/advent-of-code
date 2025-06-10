@@ -5,6 +5,7 @@
 let
   packages = with pkgs; [
     sbcl
+    rlwrap
   ];
 in
 pkgs.mkShell {
