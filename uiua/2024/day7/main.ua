@@ -36,6 +36,6 @@ Part₂ ← Solve!E₂
 ⍤⤙≍ 11387 Part₂ Sample
 
 # ======== RUNNING ========
-$"Part one solution is: '_'" Part₁ Input
+&p$"Part one solution is: '_'" Part₁ Input
 
-$"Part two solution is: '_'" Part₂ Input
+&p$"Part two solution is: '_'" Part₂ Input
