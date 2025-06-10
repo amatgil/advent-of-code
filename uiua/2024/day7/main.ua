@@ -19,28 +19,23 @@ Sample ←
 ParseLine ← ⊓⋕(⊜⋕⊸≠@\s) °{⊙∘} ⊜□¬⊸⌕": "
 E₁        ← |2 ⨬([∩⌟E₁] ⊃+× ⊙°⊂ :|⋅∘) =₀ ⊸⧻:           # ? Acc Rest
 E₂        ← |2 ⨬([∩₃⌟E₂] ⊃(+|×|⍜∩°⋕⊂) ⊙°⊂ :|⋅∘) =₀ ⊸⧻: # ? Acc Rest
+Solve! ← (
+  ⊜□⊸≠@\n
+  ˜⊙∘ ⍚ParseLine
+  °□/+▽≥₁⊸≡◇(/+♭= ^0°⊂)
+)
 
 # ====== PART 1 ======
-Part₁ ← (
-  ⊜□⊸≠@\n
-  ˜⊙∘ ⍚ParseLine
-  °□/+▽≥₁⊸≡◇(/+♭= E₁°⊂)
-)
+Part₁ ← Solve!E₁
 
 # ====== PART 2 ======
-Part₂ ← (
-  ⊜□⊸≠@\n
-  ˜⊙∘ ⍚ParseLine
-  °□/+▽≥₁⊸≡◇(/+♭= E₂°⊂)
-)
+Part₂ ← Solve!E₂
 
 # ====== TESTS =======
 ⍤⤙≍ 3749 Part₁ Sample
 ⍤⤙≍ 11387 Part₂ Sample
 
 # ======== RUNNING ========
-# $"Part one solution is: '_'" Part₁ Input
+$"Part one solution is: '_'" Part₁ Input
 
 $"Part two solution is: '_'" Part₂ Input
-
-# ⊥₂ ⇡ⁿ⊙2 -₁⊸⧻:
