@@ -48,11 +48,11 @@ PrimePart₁ ← (
 )
 
 Part₁ ← (
-  ⊜∘⊸≠@\n                 # pad
-  ˙⍜⊜□(⍚˜(↯⧻)°⊏) +₁-@A    # assign id by region
-  ⊃(˙⊕⧻                   # Count area
-  | =⊃(◴♭)¤               # separate into list of masks by id
-    ≡₂(+∩(/+♭⬚0⧈(≠0-))⊸⍉) # compute regions=deltas
+  ⊜∘⊸≠@\n                # pad
+  ˙⍜⊜□(⍚˜(↯⧻)°⊏) +₁-@A   # assign id by region
+  ⊃(˙⊕⧻                  # Count area
+  | =⊃(◴♭)¤              # separate into list of masks by id
+    ≡(+∩(/+♭⬚0⧈(≠0-))⊸⍉) # compute regions=deltas
   )
   /+×
 )
@@ -70,8 +70,13 @@ Part₁ ← (
 
 # $"Part two solution is: '_'" Part₂ Input
 
-Sample₁
+Sample₃
 ⊜∘⊸≠@\n              # pad
 ˙⍜⊜□(⍚˜(↯⧻)°⊏) +₁-@A # assign id by region
 =⊃(◴♭)¤
-≡₂(+∩(/+♭⬚0⧈(≠0-))⊸⍉)
+⊢
+⍉⊸(∩(⬚0⧈(≠0-))⊸⍉)
+# steps:
+# get mask of edges
+# partition with OR per axis to combine equal ones
+# maybe with a scan? i think i'd need too much bookkeeping
