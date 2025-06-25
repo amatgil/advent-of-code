@@ -1,10 +1,11 @@
 {
   pkgs ? import <nixpkgs> { },
   lib,
+  uiua
 }:
 let
   packages = with pkgs; [
-    uiua-unstable
+     uiua
   ];
 in
 pkgs.mkShell {
@@ -16,3 +17,4 @@ pkgs.mkShell {
     LD_LIBRARY_PATH = "${lib.makeLibraryPath packages}";
   };
 }
+

@@ -1,5 +1,41 @@
 {
   "nodes": {
+    "crane": {
+      "locked": {
+        "lastModified": 1727235847,
+        "narHash": "sha256-MoEot8izwkfGm1h5ak8hS2bu59mLmKeevlP/OvFLCzM=",
+        "owner": "ipetkov",
+        "repo": "crane",
+        "rev": "08f45b5a2e01cf34ca6081188c6d16aa35581b09",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ipetkov",
+        "repo": "crane",
+        "type": "github"
+      }
+    },
+    "flake-parts": {
+      "inputs": {
+        "nixpkgs-lib": [
+          "uiua",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1727826117,
+        "narHash": "sha256-K5ZLCyfO/Zj9mPFldf3iwS6oZStJcU4tSpiXTMYaaL0=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "3d04084d54bedc3d6b8b736c70ef449225c361b1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1749285348,
@@ -16,9 +52,47 @@
         "type": "github"
       }
     },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1741246872,
+        "narHash": "sha256-Q6pMP4a9ed636qilcYX8XUguvKl/0/LGXhHcRI91p0U=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "10069ef4cf863633f57238f179a0297de84bd8d3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "uiua": "uiua"
+      }
+    },
+    "uiua": {
+      "inputs": {
+        "crane": "crane",
+        "flake-parts": "flake-parts",
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1750879872,
+        "narHash": "sha256-xjgbDLU7N1KWfGdmY/K2yI5Ok5IS6LrSmrLFhWyxRF0=",
+        "owner": "uiua-lang",
+        "repo": "uiua",
+        "rev": "33c014b28af24e492552fd03a1036aed4376c95e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "uiua-lang",
+        "ref": "main",
+        "repo": "uiua",
+        "type": "github"
       }
     }
   },

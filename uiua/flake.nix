@@ -2,9 +2,10 @@
   description = "Default uiua flake (casenc)";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    uiua.url = "github:uiua-lang/uiua/main";
   };
   outputs =
-    { self, nixpkgs }:
+    { self, nixpkgs, uiua }:
     let
       supportedSystems = [ "x86_64-linux" ];
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
@@ -12,7 +13,7 @@
     in
     {
       devShells = forAllSystems (system: {
-        default = pkgs.callPackage ./shell.nix { inherit pkgs; };
+        default = pkgs.callPackage ./shell.nix { inherit pkgs; uiua = uiua.packages.${system}.default; };
       });
     };
 }
