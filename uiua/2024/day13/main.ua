@@ -46,37 +46,21 @@ Parse ← (
     ∩₃(⊟∩⋕)
   )
 )
-# Only for 2x2 matrices
-Inv ← (
-  ⊃(/-/×⍜⊢⇌      # Determinant
-  | ⍜(⌝⤸0_0)⇌    # swap major diag
-    ⍜≡⇌⍜(⌝⤸0_0)¯ # negate minor diag
-  )
-  ÷
+
+Sol! ← (
+  ^0Parse
+  ≡(⊟∩⌟˜÷ ∩₃(/-/×⍜⊢⇌) ⤚⊃(⍜⍉⍜⊢◌|⍜⍉⍜⊣◌) ⍉⊟) # cramer it up
+  ⍉▽⊸(≡/×=⊸⁅)
+  /+♭×3_1
 )
 
-# ====== PART 1 ======
-Part₁ ← (
-  Parse
-  ≡(⁅₁₀˜(/+×⍉) Inv⊟)  # solve system
-  /+♭×3_1 ⍉▽⊸(≡/×=⊸⁅) # keep integers
-)
-# ====== PART 2 ======
-Part₂ ←
+# ====== PARTS ======
+Part₁ ← Sol!∘
+Part₂ ← Sol!⊙⊙(+10000000000000)
 
 # ====== TESTS =======
-# Input here
 ⍤⤙≍ 480 Part₁ Sample₁
-# ⍤⤙≍ "testout2" Part₂
 
 # ======== RUNNING ========
 $"Part one solution is: '_'" Part₁ Input
-
-# $"Part two solution is: '_'" Part₂ Input
-
-Sample₁
-Parse
-⊙⊙(+10000000000000)
-≡(⁅₄˜(/+×⍉) Inv⊟) # solve system
-⍉▽⊸(≡/×=⊸⁅)       # keep integers
-/+♭×3_1
+$"Part two solution is: '_'" Part₂ Input
