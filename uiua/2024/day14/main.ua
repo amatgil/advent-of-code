@@ -23,29 +23,27 @@ SampleSize ← 11_7
 Parse ← ⊜(∩⊟∩₄⋕°$"p=_,_ v=_,_")⊸≠@\n # poss vels ?
 
 # ====== PART 1 ======
-# Grid is visualizable with ⍉°⊚
 # ? Input Size
 Part₁ ← (
   Parse
-  ⊃(⌊÷2⋅⋅∘|⧋˜◿⊙⋅∘)⍥₁₀₀⊸+
-  ⊸(+⧋⊃(<|¯>))     # mask of quadrants
-  /×⊕⧻⊛∩⌞▽⊸(≠₀≡/×) # group per quadrant class
+  ⊃(⌊÷2⋅⋅∘|⧋˜◿⊙⋅∘)⍥₁₀₀⊸+ # compute
+  ⊸(+⧋⊃(<|¯>))           # mask of quadrants
+  /×⊕⧻⊛∩⌞▽⊸(≠₀≡/×)       # group per quadrant class
 )
 
 # ====== PART 2 ======
 Part₂ ← (
   M ← 10000 # upper bound
   Parse
-  ⊸⧋˜◿⊸⍥(⊃(⊙⊙∘|∘)⊸+)M               # Compute 
+  ⊸⧋˜◿⊸⍥(⊃(⊙⊙∘|∘)⊸+)M               # Compute, storing prev frames
   ≡(⬚0˜↙⍉°⊚) ⊙(¤⇌)                  # Materialize frames
-  ≡(⬚0+ layout20 °⋕)°⊏              # Burn in frame number
+  ≡(⬚0+ layout20 °⋕)°⊏              # Burn-in frame number
   \+ ♭⇌⍢(⊂+2_¯2⊸⊢|<M /↥⊢) [[70 31]] # filter for the ones...
-  ⊏ +1 ▽⊸<-₁M                       # ...with stripes
-  &gifs 4                           # look for tree, add 1 to frame number 
+  ⊏ +1 ▽⊸<-₁M                       # ...with stripes, according to pattern
+  &gifs 4                           # I didn't know what it'd look like :/
 )
 
 # ====== TESTS =======
-# Input here
 ⍤⤙≍ 12 Part₁ Sample SampleSize
 
 # ======== RUNNING ========
