@@ -1,0 +1,29 @@
+⍝ Prelude:
+⎕IO←0
+]box on
+]rows on
+read←{⊃⎕NGET⍵1} 
+sort ← {⍵[⍋⍵]}
+keep←{⍺/⍵}
+Prelude ← 'read' 'sort' 'keep'
+
+D1 ← ⎕NS⍬
+D1.P1 ← +/|-⌿(sort⍤1) ⍉↑⍎¨
+D1.P2 ← {
+    (l r)← ⊂⍤1⍉↑⍎¨⍵
+    +/ l×+/l∘.=r
+}
+
+D2 ← ⎕NS⍬
+D2.safe ← {
+    mono  ← {(1=≢∘∪) × 2-/⍵}
+    steep ← {∧/(1∘≤ ∧ ≤∘3) |2-/⍵}
+    +/(mono∧steep) ⍵
+} 
+D2.P1 ← +/safe¨ ⍎¨
+D2.P2 ← {
+    NB: opts←{(⊂⍵),(⊂⍤1∘.≠⍨⍳≢⍵)∘.keep(⊂⍵)}
+    NB: +/{∨/ safe¨ opts⍵}¨ ⍎¨
+
+    +/{∨/ (safe⍵),(safe⍤1∘.≠⍨⍳≢⍵)∘.keep(⊂⍵)}¨ ⍎¨
+}
