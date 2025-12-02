@@ -20,9 +20,9 @@ Sample ←
 # it feels like it misses the final item
 # this looks more scuffed than it should
 
-Parse ← ×˜⊏¯1_1⨂"LR"⊜(⊙⋕°⊂)⊸≠@\n
-Part₁ ← /+=₀◿₁₀₀ \+⊂50 Parse
-Part₂ ← /+=₀◿₁₀₀ \+⊂50 ˜▽°× Parse
+Parse ← ˜⊏¯1_1⨂"LR"⊜(⊙⋕°⊂)⊸≠@\n
+Part₁ ← /+=₀◿₁₀₀ \+⊂50 × Parse
+Part₂ ← /+=₀◿₁₀₀ \+⊂50 ˜▽ Parse
 
 ⍤⤙≍ 3 Part₁ Sample
 ⍤⤙≍ 6 Part₂ Sample
