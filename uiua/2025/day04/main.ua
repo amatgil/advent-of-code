@@ -16,7 +16,7 @@ $ .@@@@@@@@.
 $ @.@.@@@.@.
 Sample ←
 
-Accessibles ← ×⊸(<₄/+≡⌟⬚0↻⊂A₂C₂)
+Accessibles ← ↧⊸(<₄/+≡⌟⬚0↻⊂A₂C₂)
 Part₁       ← /+♭ Accessibles =@@ ⊜∘⊸≠@\n
 Part₂ ← (
   =@@ ⊜∘⊸≠@\n
