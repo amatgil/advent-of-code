@@ -16,9 +16,9 @@ $ .@@@@@@@@.
 $ @.@.@@@.@.
 Sample ←
 
-Parse       ← =@@ ⊜∘⊸≠@\n
-Accessibles ← ↧⊸(<₄/+⬚0↻⊂A₂C₂)
-Part₁       ← /+♭ Accessibles Parse
-Part₂       ← -∩(/+♭)⊃⊣⊢ ⍥⊸(≠⊸Accessibles)∞ Parse
+Parse ← =@@ ⊜∘⊸≠@\n
+Ac    ← ↧⊸(<₄/+⬚0↻⊂A₂C₂) # Accessibles
+Part₁ ← /+♭ Ac Parse
+Part₂ ← -∩(/+♭)⊃⊣⊢ ⍥⊸(≠⊸Ac)∞ Parse
 ⍤⤙≍ 13 Part₁ Sample
 ⍤⤙≍ 43 Part₂ Sample
