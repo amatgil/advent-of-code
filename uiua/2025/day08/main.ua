@@ -27,14 +27,16 @@ $ 425,690,689
 Sample ←
 
 Part₁ ← (
-  ⊜(⊜⋕⊸≠@,)⊸≠@\n
-  ⊃(⊏⍏∩⌞▽⊸≠₀ ⊸≡/(⍜ⁿ₂/+-)♭₋₁˙⊞⊟|≡(□¤)) # Sort by distance ignoring self ones
-  ↙⤙⊙⊙◌ ◴ ≡⍆                          # Distance is symmetrical, fish amount
+  ⊙(
+    ⊜(⊜⋕⊸≠@,)⊸≠@\n
+    ⊃(⊏⍏ ⊸≡/(⍜ⁿ₂/+-) ⧅₂<|≡(□¤)) # Sort by distance, upper triangle
+  )
+  ↙
   ∧(
     ⊸≡⌞(/∨∊⊙°□)  # Where are they currently?
-    ⊂□ /◇⊂ ∩⌟▽⟜¬ # Set union
+    ⊂□ /◇⊂ ∩⌟▽⟜¬ # Set union, bit scuffed
   )
   /× ↙₃⇌⍆≡◇⧻
 )
 
-⍤⤙≍ 40 Part₁ Sample 10
+⍤⤙≍ 40 Part₁ 10 Sample
