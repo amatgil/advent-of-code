@@ -31,7 +31,7 @@ Adv ← (
   ⊂□ /◇⊂ ∩⌟▽⟜¬ # Set union, bit scuffed
 )
 
-Parse ← ⊃(⊏⍏ ⊸≡/(⍜ⁿ₂/+-) ⧅₂<|≡(□¤)) ⊜(⊜⋕⊸≠@,)⊸≠@\n # Sort by distance, upper triangle 
+Parse ← ⊃(⊏⍏ ⊸≡/(/+ⁿ₂-) ⧅₂<|≡(□¤)) ⊜(⊜⋕⊸≠@,)⊸≠@\n # Sort by distance, upper triangle 
 
 Part₁ ← /×↙₃⇌⍆≡◇⧻ ∧Adv ↙⊙Parse
 Part₂ ← /×⊢⍉ ⊣ ⍢(∪⌞∘⤚Adv °⊂|≠₁⧻◌) Parse
