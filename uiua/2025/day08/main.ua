@@ -26,17 +26,18 @@ $ 984,92,344
 $ 425,690,689
 Sample ←
 
-Part₁ ← (
-  ⊙(
-    ⊜(⊜⋕⊸≠@,)⊸≠@\n
-    ⊃(⊏⍏ ⊸≡/(⍜ⁿ₂/+-) ⧅₂<|≡(□¤)) # Sort by distance, upper triangle
-  )
-  ↙
-  ∧(
-    ⊸≡⌞(/∨∊⊙°□)  # Where are they currently?
-    ⊂□ /◇⊂ ∩⌟▽⟜¬ # Set union, bit scuffed
-  )
-  /× ↙₃⇌⍆≡◇⧻
+Adv ← (
+  ⊸≡⌞(/∨∊⊙°□)  # Where are they currently?
+  ⊂□ /◇⊂ ∩⌟▽⟜¬ # Set union, bit scuffed
 )
 
+Parse ← ⊃(⊏⍏ ⊸≡/(⍜ⁿ₂/+-) ⧅₂<|≡(□¤)) ⊜(⊜⋕⊸≠@,)⊸≠@\n # Sort by distance, upper triangle 
+
+Part₁ ← /×↙₃⇌⍆≡◇⧻ ∧Adv ↙⊙Parse
+Part₂ ← /×⊢⍉ ⊣ ⍢(∪⌞∘⤚Adv °⊂|≠₁⧻◌) Parse
+
 ⍤⤙≍ 40 Part₁ 10 Sample
+⍤⤙≍ 25272 Part₂ Sample
+
+$Part₁ ⊙◌⍜nowPart₁1000 Input
+$Part₂ ⊙◌⍜nowPart₂ Input
