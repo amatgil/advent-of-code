@@ -8,3 +8,5 @@ target/
 /rust/2022/dia-07/*.txt
 /rust/2022/dia-11/.vscode/
 *.fasl
+*.bak
+/janet/2025/jpm_tree/
