@@ -14,20 +14,31 @@ $ 2,3
 $ 7,3
 Sample ←
 
-Simp  ← ◴⊂ ∩⌟(▽⊸⧋(/∨=))⊸⊃/↧/↥ # Fast and wrong
 Part₁ ← /↥♭˙⊞(/×+₁⌵-) ⊜(⊜⋕⊸≠@,)⊸≠@\n
-Disp  ← ⌝↘¯⟜⌝↘2_2 °⊚
-Disp  ← &fwa"/tmp/plot"img"png" Plot Data ⁅÷₁₀₀₀
+# Disp  ← ⌝↘¯⟜⌝↘2_2 °⊚
+# Disp  ← &fwa"/tmp/plot"img"png" Plot Data
 
-I
+# idea: per rectangle, for each x (and then each y, not nested, because rectangle)
+# we check for point-in-polygon
+
+Between ← /⊂ ⧋+⟜(⇡-) ⍜(⍆□₂|⍜⊣+₁)
+Between ← ⧋+⟜(/⊂⇡↥₁-)⍜□₂⍆
+Between ← /⊂ ⧋+⟜(⨬(¯⇡⌵|⇡)⊸(=₁±/↧) ⍜▽⋅1⊸=₀ -) # negative range is ass..
+Sample
 ⊜(⊜⋕⊸≠@,)⊸≠@\n
-Disp
+⊃(⊃⊡₄⊡₇|pop /◇⊂⧈(□Between) ⊂⌟⤙⊢)
+⤚-⊙+₁⍜□₂⍆ ?₂
 
-# /◇⊂⧈(□ /⊂ ⧋+⟜(⇡-) ⊙+₁ ⍜□₂⍆) ⊂⟜⊢
+# ≡⌟+≡⨬(˜⊟|⊟) ⊙0 ⊃(⊢⊚↧1|⇡/↥) ⊃(⌵-)↧ 7_1 11_1
 
-# >₀°⊚
-# # ≡₀(↯3)
-# # ⍜(⊡8_4|⋅0_1_0)
-# ⤸1
-# ⌝↘¯⟜⌝↘2_2
-# &ims
+# /⊂⧋+⟜(⇡ ⍜▽⋅1⊸=₀ -)
+# for(⍜⊣+₁ sortbox,2)
+# ⟜(/⊂⇡-) ⍜(⍆□₂|⍜⊣+₁)
+
+# Part₁ Sample
+
+# Sample
+# ⊜(⊜⋕⊸≠@,)⊸≠@\n
+# ⍜⍉≡⍜⍆⊛ # Compactify (per axis! since they're linearly independent)
+# /◇⊂⧈(□Between) ˜⊂⊸⊢
+# Disp
