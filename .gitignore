@@ -10,3 +10,5 @@ target/
 *.fasl
 *.bak
 /janet/2025/jpm_tree/
+.*/uiua-modules/.*
+uiua/uiua/steal-gift/lib/f936cc5384d8bf12.uasm
